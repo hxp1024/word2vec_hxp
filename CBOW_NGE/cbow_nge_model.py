@@ -18,7 +18,6 @@ class CBOWModel(nn.Module):
         self.u_embeddings.weight.data.uniform_(-int_range, int_range)
         self.w_embeddings.weight.data.uniform_(-0, 0)
 
-
     def forward(self, pos_u, pos_w, neg_w):
         pos_u_emb = []  # 上下文embedding
         for per_Xw in pos_u:

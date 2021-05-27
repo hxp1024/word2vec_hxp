@@ -1,10 +1,12 @@
 import sys
+
 sys.path.append("../Skip_Gram_NGE/")
 from skip_gram_nge_model import SkipGramModel
 from input_data import InputData
 import torch.optim as optim
 from tqdm import tqdm
 import argumentparser as argumentparser
+
 args = argumentparser.ArgumentParser()
 WINDOW_SIZE = args.window_size  # 上下文窗口c
 BATCH_SIZE = args.batch_size  # mini-batch
@@ -39,8 +41,6 @@ class Word2Vec:
             loss = self.model.forward(pos_w, pos_v, neg_v)
             loss.backward()
             self.optimizer.step()
-
-            
 
         self.model.save_embedding(self.data.id2word_dict, self.output_file_name)
 
