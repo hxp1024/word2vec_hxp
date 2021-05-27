@@ -8,7 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/CBOW_HS" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Remote Python 3.5.2 (sftp://liuhui@qcloud.gregchan.cn:8040/usr/bin/python3)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.8 (py38torch)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
