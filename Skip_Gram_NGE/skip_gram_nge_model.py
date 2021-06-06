@@ -18,15 +18,19 @@ class SkipGramModel(nn.Module):
         self.v_embeddings.weight.data.uniform_(-0, 0)
 
     def forward(self, pos_w, pos_v, neg_v):
-        # emb_w = self.w_embeddings(torch.LongTensor(pos_w).cuda())  # 转为tensor 大小 [ mini_batch_size * emb_dimension ]
-        # emb_v = self.v_embeddings(torch.LongTensor(pos_v).cuda())  # 转为tensor 大小 [ mini_batch_size * emb_dimension ]
-        emb_w = self.w_embeddings(torch.LongTensor(pos_w))  # 转为tensor 大小 [ mini_batch_size * emb_dimension ]
-        emb_v = self.v_embeddings(torch.LongTensor(pos_v))  # 转为tensor 大小 [ mini_batch_size * emb_dimension ]
+        # pos_w shape=[batch_size] 中心词index
+        # pos_v shape=[batch_size] 周围词index
+        # neg_v shape=[negative_sampling_number, batch_size] 负采样index
+
+        # emb_w = self.w_embeddings(torch.LongTensor(pos_w).cuda())  # 转为tensor 大小 [ mini_batch_size , emb_dimension ]
+        # emb_v = self.v_embeddings(torch.LongTensor(pos_v).cuda())  # 转为tensor 大小 [ mini_batch_size , emb_dimension ]
+        emb_w = self.w_embeddings(torch.LongTensor(pos_w))  # 转为tensor 大小 [ mini_batch_size , emb_dimension ]
+        emb_v = self.v_embeddings(torch.LongTensor(pos_v))  # 转为tensor 大小 [ mini_batch_size , emb_dimension ]
 
         # neg_emb_v = self.v_embeddings(
-        #     torch.LongTensor(neg_v).cuda())  # 转换后大小 [ negative_sampling_number * mini_batch_size * emb_dimension ]
+        #     torch.LongTensor(neg_v).cuda())  # 转换后大小 [ negative_sampling_number , mini_batch_size , emb_dimension ]
         neg_emb_v = self.v_embeddings(
-            torch.LongTensor(neg_v))  # 转换后大小 [ negative_sampling_number * mini_batch_size * emb_dimension ]
+            torch.LongTensor(neg_v))  # 转换后大小 [ negative_sampling_number , mini_batch_size , emb_dimension ]
         # torch.mul() 是对应元素相乘，矩阵形状不变
         # score shape=[ mini_batch_size, emb_dimension ]
         # 我们希望 score 值越大越好，说明词向量越相近
